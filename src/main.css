@@ -1,0 +1,52 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body * {
+	box-sizing: border-box;
+}
+
+.header {
+	width: 100%;
+	background-color: green;
+}
+
+.controls {
+	width: 100%;
+	height: 20vh;
+	background-color: red;
+	display: grid;
+	grid-template-areas: 
+		"brand state"
+		"general general";
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 3fr 1fr;
+
+}
+
+.controls form > div {
+	display: inline-block;
+}
+
+.brand {
+	grid-area: brand;
+}
+
+.state {
+	grid-area: state;
+}
+
+.general {
+	grid-area: general;
+	background-color: orange;
+}
+
+.chart {
+	width: 100%;
+	height: 80vh;
+	background-color: #efefef;
+}
