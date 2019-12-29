@@ -19,6 +19,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "d3": "^5.14.2"
+    "d3": "^5.14.2",
+    "raw-loader": "^4.0.0"
   }
 }
