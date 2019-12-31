@@ -3,6 +3,8 @@ import {line} from "d3-shape";
 import {extent, max} from "d3-array";
 import {scaleUtc, scaleLinear} from "d3-scale";
 import {transition} from "d3-transition";
+import {axisBottom, axisRight} from "d3-axis";
+import {format} from "d3-format";
 import {colors} from "./../colors.js";
 
 export class chart {
@@ -28,7 +30,17 @@ export class chart {
 
 		this.priceLine = line()
 		    .x(d => this.x(d.date))
-		    .y(d => this.priceScale(d.price))
+		    .y(d => this.priceScale(d.price));
+
+		this.yAxis = this.holder
+			.append("g")
+			.attr("class", "yAxis");
+
+		this.xAxis = this.holder
+			.append("g")
+			.attr("class", "xAxis");
+
+		this.drawAxes = this.drawAxes.bind(this);
 	}
 
 	draw(data, visibility, priceScale) {
@@ -42,7 +54,6 @@ export class chart {
 		this.isPriceScale = priceScale;
 
 		const mappedData = Object.entries(this.data).map(([key, value]) => ({key,value}));
-		
 		let maxPrice = max(Object.values(this.data).map(e => max(e, f => f.price)));
 		let maxCount = max(Object.values(this.data).map(e => max(e, f => f.count)));
 
@@ -56,18 +67,20 @@ export class chart {
 			.domain(extent(this.data[Object.keys(this.data)[0]].map(e => e.date)));
 
 
+		this.drawAxes();
+
 		let chart = this.holder;
 		let priceLine = this.priceLine;
 		let countLine = this.countLine;
 		let isPriceScale = this.isPriceScale;
-
 		let thisData = this.data;
 		let paths = this.holder
-			.selectAll("path")
+			.selectAll("path.path")
 			.data(mappedData, d => d.key);
 
 		let enter = paths.enter()
 			.append("path")
+			.attr("class", "path")
 			
 
 		let theVisibility = this.visibility;
@@ -94,6 +107,7 @@ export class chart {
 
 		
 		enter
+			.attr("class", "path")
 			.attr("stroke", d => colors[d["key"]])
 			.attr("stroke-opacity", 0.5)
 		      .style("opacity", function(d){
@@ -121,6 +135,30 @@ export class chart {
 		      .transition()
 				  .duration(750)
 				  .attr("stroke-dashoffset", 0);
+
+		
+
+	}
+
+
+	drawAxes(){
+
+		this.xAxis
+			.attr("transform", `translate(0,${this.height - this.margin.bottom})`)
+			.call(axisBottom(this.x));
+
+		let isPriceScale = this.isPriceScale;
+		let commaFormat = format(",");
+		this.yAxis
+			.attr("transform", `translate(${this.margin.left},0)`)
+			.transition().duration(300)
+		    .call(axisRight(this.isPriceScale ? this.priceScale : this.countScale)
+		    		.tickSize(this.width - this.margin.left - this.margin.right)
+		        .tickFormat(s => isPriceScale ? `$${s}` : commaFormat(s)))
+		    .call(g => g.select(".domain")
+		        .remove())
+		    .call(g => g.selectAll(".tick text")
+		        .attr("x", -16))
 
 	}
 }

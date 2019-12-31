@@ -31,7 +31,7 @@ export class selector {
 				select(".brand").classed("inactive", true);
 				setVisualizing(false);
 			});
-		this.general = holder.append("div").attr("class", "general");
+		this.general = holder.append("div").attr("class", "general").append("div").attr("class", "general-inner");
 
 		this.brand.append("h3").html("Brand");
 		this.state.append("h3").html("State");
@@ -59,11 +59,11 @@ export class selector {
 		let setScale = this.setScale;
 		formStuff.enter()
 			.append("div")
-			.attr("class", "promoted-checkbox")
+			.attr("class", "promoted-checkbox radio")
 				.each(function(d){
 					let theThis = select(this);
 					theThis.append("input").attr("type", "radio")
-						.attr("class", "promoted-input-checkbox radio")
+						.attr("class", "promoted-input-checkbox")
 						.attr("id", d)
 						.attr("name", "scale").attr("value", d)
 						.property("checked", function(e){

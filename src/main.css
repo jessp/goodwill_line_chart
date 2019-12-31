@@ -69,6 +69,10 @@ h1, h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 5px;
 }
 
+.general-inner {
+	margin: 0em 2em;
+}
+
 .controls .general form > div {
 	width: auto;
 	margin-left: 20px;
@@ -76,6 +80,7 @@ h1, h1, h2, h3, h4, h5, h6 {
 
 .controls .general form {
 	display: inline-block;
+	vertical-align: middle;
 }
 
 .controls .general h3 {
@@ -120,9 +125,6 @@ h1, h1, h2, h3, h4, h5, h6 {
   width: 1px;
 }
 
-.promoted-input-checkbox.radio {
-	border-radius: 25px;
-}
 
 .promoted-checkbox input:checked + label > svg {
   height: 25px;
@@ -143,6 +145,11 @@ h1, h1, h2, h3, h4, h5, h6 {
   float: left;
   border: 2px solid;
 }
+
+.promoted-checkbox.radio label:after {
+	border-radius: 25px;
+}
+
 .promoted-checkbox svg {
   height: 0;
   width: 12px;
@@ -158,4 +165,18 @@ h1, h1, h2, h3, h4, h5, h6 {
 
 .inactive .promoted-checkbox input:checked + label > svg {
   fill-opacity: 0.2;
+}
+
+
+.yAxis {
+	text-anchor: end;
+}
+
+.yAxis .tick:not(:first-of-type) line{
+	stroke-opacity: 0.5;
+	stroke-dasharray: 2,2;
+}
+
+.domain {
+	display: none;
 }
