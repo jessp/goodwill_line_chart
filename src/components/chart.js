@@ -41,9 +41,27 @@ export class chart {
 			.attr("class", "xAxis");
 
 		this.drawAxes = this.drawAxes.bind(this);
+		this.draw = this.draw.bind(this);
+		this.resize = this.resize.bind(this);
+		window.addEventListener("resize", () => this.resize());
 	}
 
-	draw(data, visibility, priceScale) {
+	resize(){
+		this.width = this.holder.node().clientWidth;
+		this.height = this.holder.node().clientHeight;
+		this.x
+			.range([this.margin.left, this.width - this.margin.right]);
+
+		this.countScale
+		    .range([this.height - this.margin.bottom, this.margin.top]);
+
+		this.priceScale
+		    .range([this.height - this.margin.bottom, this.margin.top]);
+
+		this.draw();
+	}
+
+	draw(data, visibility, isItPriceScale) {
 		if (data){
 			this.data = data;
 		}
@@ -51,7 +69,9 @@ export class chart {
 			this.visibility = visibility;
 		}
 
-		this.isPriceScale = priceScale;
+		if (isItPriceScale !== undefined){
+			this.isPriceScale = isItPriceScale;
+		}
 
 		const mappedData = Object.entries(this.data).map(([key, value]) => ({key,value}));
 		let maxPrice = max(Object.values(this.data).map(e => max(e, f => f.price)));
@@ -135,8 +155,6 @@ export class chart {
 		      .transition()
 				  .duration(750)
 				  .attr("stroke-dashoffset", 0);
-
-		
 
 	}
 

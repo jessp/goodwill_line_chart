@@ -41,6 +41,8 @@ export class selector {
 		this.stateForm = this.state.append("form");
 		this.generalForm = this.general.append("form");
 		this.update(this.visibility, this.priceScale);
+
+		this.general.append("h3").html("Show Average");
 		
 	}
 

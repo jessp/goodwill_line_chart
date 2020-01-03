@@ -22,7 +22,6 @@ import {selector} from "./components/selector.js";
     		"Gap" : true,
 			"Loft" : true,
 			"Ralph Lauren" : true,
-			"Calvin Klein" : true,
 			"Old Navy" : true,
 			"Talbots" : true,
 			"Michael Kors" : true
