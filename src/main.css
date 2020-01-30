@@ -55,6 +55,7 @@ h1, h1, h2, h3, h4, h5, h6 {
 
 .header {
 	width: 100%;
+	margin-bottom: 3em;
 }
 
 .header h1 {
@@ -62,7 +63,7 @@ h1, h1, h2, h3, h4, h5, h6 {
 }
 
 .header p {
-	margin: 0em 1em 3em 1em;
+	margin: 0em 1em 1.25em 1em;
 }
 
 .controls {

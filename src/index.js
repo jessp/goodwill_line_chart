@@ -18,7 +18,9 @@ import {selector} from "./components/selector.js";
     let wrapper = selectedElement.append("div").attr("class", "wrapper");
     let header = wrapper.append("div").attr("class", "header");
     header.append("h1").text("Price and Quantity of Women's Shirts at Goodwill Over Time");
-    header.append("p").text("Maecenas in feugiat risus, vel eleifend nisi. Curabitur in nibh nec tellus convallis hendrerit eu egestas purus. Morbi tincidunt nisl ac est efficitur, ut iaculis erat convallis. Aliquam at imperdiet enim. Curabitur tempor lectus sit amet erat tempor dapibus. Aliquam in facilisis ligula. Cras at felis nec lorem ullamcorper mollis. Fusce sit amet mi eu libero mattis fermentum sit amet non nisi. Sed sit amet accumsan elit, id pulvinar tellus. Vivamus quis cursus massa. Quisque consectetur quam non fringilla fermentum. Sed accumsan nisi augue, mattis imperdiet tortor vehicula non. Maecenas vel convallis risus. Etiam at quam sit amet ante venenatis mattis. Etiam lorem ligula, consequat congue sagittis in, viverra eu mauris.");
+    header.append("p").text("Over the summer of 2019, I scraped almost four million item pages from the Goodwill auction website in hopes of learning something interesting about how the price or demand for certain brands of items has changed over time. I focused just on women's shirts to keep the search somewhat limited. I learned nothing valuable. Here is a chart anyways.");
+    header.append("p").text("Loft includes items under the Ann Taylor brand as well.")
+    header.append("p").text("This project was done in my spare time without the permission of Goodwill. I will happily consider taking it down if it infringes on anything.");
     let chartControls = selectedElement.append("div").attr("class", "controls");
     let chartHolder = selectedElement.append("svg").attr("class", "chart");
     
