@@ -7,5 +7,6 @@ export const colors = {
 			"Michael Kors" : "#6a007a",
 			"Used": "#06D6A0",
 			"NWT": "#118AB2",
-			"NWOT": "#073B4C"
+			"NWOT": "#073B4C",
+			"Average": "#000"
 		}

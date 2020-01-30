@@ -39,24 +39,55 @@ export class selector {
 
 		this.brandForm = this.brand.append("form");
 		this.stateForm = this.state.append("form");
-		this.generalForm = this.general.append("form");
-		this.update(this.visibility, this.priceScale);
+		this.generalForm = this.general.append("form").attr("class", "generalForm");
 
-		this.general.append("h3").html("Show Average");
-		
+		this.arrow = this.general.append("div");
+		this.arrow
+		.style("display", "inline-block")
+		.style("margin-left", "10px")
+		.attr("class", "arrowDiv")
+		.append("svg")
+		.attr("viewBox", "0 0 100 15")
+		.attr("width", "100px")
+		.attr("height", "15px")
+		.append("defs")
+		.append("marker")
+		.attr("id", "arrow")
+		.attr("viewBox", "0 0 10 10")
+		.attr("refX", "5")
+		.attr("refY", "5")
+		.append("path")
+		.attr("fill", "#444")
+		.attr("d", "M 0 0 L 10 5 L 0 10 z");
+
+		this.arrow.select("svg")
+			.append("path")
+			.attr("d", "M 0 10 L 95 10")
+			.attr("stroke", "#444")
+			.attr("stroke-width", 2)
+			.attr("stroke-dasharray", "8 4")
+			.attr("marker-end", "url(#arrow)");
+
+		this.averageForm = this.general.append("form").attr("class", "averageForm");
+
+		this.update(this.visibility, this.priceScale);
 	}
 
-	update(visibility, priceScale){
+	update(visibility, priceScale, visualizingBrand){
 		this.visibility = visibility;
 		this.priceScale = priceScale;
+		this.visualizingBrand = visualizingBrand;
 		this.constructCheckbox(this.brandForm, this.visibility, "brand");
 		this.constructCheckbox(this.stateForm, this.visibility, "state");
 		this.constructRadio(this.generalForm, this.priceScale);
+		this.constructCheckbox(this.averageForm, this.visibility, "brand", true);
+		this.arrow.style("visibility", this.priceScale ? "visible" : "hidden");
+		this.averageForm.style("visibility", this.priceScale ? "visible" : "hidden");
 	}
 
 	constructRadio(formItem, priceScale){
-		let formStuff = formItem.selectAll("input")
-			.data(["Price", "Count"], d => d);
+		let formStuff = formItem.selectAll(".promoted-checkbox.radio")
+			.data(["Count", "Price"], d => d);
 
 		let setScale = this.setScale;
 		formStuff.enter()
@@ -90,10 +121,14 @@ export class selector {
 				});
 	}
 
-	constructCheckbox(formItem, array, arrayItem){
+	constructCheckbox(formItem, array, arrayItem, justAverage){
+		let formArray = Object.keys(array[arrayItem]).filter(e => e !== "Average");
+		if (justAverage){
+			formArray = Object.keys(array[arrayItem]).filter(e => e === "Average")
+		}
 		let setVisibility = this.setVisibility;
 		let formStuff = formItem.selectAll("div")
-			.data(Object.keys(array[arrayItem]), function(d){ return d});
+			.data(formArray, function(d){ return d});
 
 		formItem.selectAll("div").each(function(d){
 					let theThis = select(this);
@@ -112,7 +147,12 @@ export class selector {
 						.attr("name", d).attr("value", d)
 						.property("checked", array[arrayItem][d])
 						.on("click", function(d){
-							setVisibility(arrayItem, d);
+							if (d === "Average"){
+								setVisibility("brand", d);
+								setVisibility("state", d);
+							} else {
+								setVisibility(arrayItem, d);
+							}
 						});
 					let label = theThis.append("label")
 						.attr("for", d);
@@ -120,9 +160,8 @@ export class selector {
 						.attr("fill", colors[d]);
 					labelSvg.append("use")
 							.attr("xlink:href","#checkmark")
-
 						
-					label.append("span").html(d);
+					label.append("span").html(d === "Average" ? "Show Average" : d);
 				});
 	}
 }
