@@ -8,6 +8,13 @@ import {selector} from "./components/selector.js";
   function component() {
     const element = document.createElement('div');
     let selectedElement = select("body");
+    let portraitPlease = selectedElement.append("div")
+        .attr("class", "portraitPlease")
+        .append("div")
+        .attr("class", "outerWrap")
+        .append("div")
+        .attr("class", "innerWrap")
+        .append("h1").html("Please Rotate Your Phone into Landscape");
     let wrapper = selectedElement.append("div").attr("class", "wrapper");
     let header = wrapper.append("div").attr("class", "header");
     header.append("h1").text("Price and Quantity of Women's Shirts at Goodwill Over Time");
