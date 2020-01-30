@@ -265,7 +265,7 @@ export class chart {
 
 	callout(selectedDatum, theX){
 		let priceFormat = this.priceFormat;
-		let countFormat = this.priceFormat;
+		let countFormat = this.countFormat;
 
 		if (selectedDatum === null || (this.x.invert(theX) < this.x.domain()[0]) || (this.x.invert(theX) > this.x.domain()[1])) {
 			this.tooltipLayer.style("display", "none");
